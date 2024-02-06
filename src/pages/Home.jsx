@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { FaArrowDownLong, FaArrowUpLong } from "react-icons/fa6";
 import { IoMdMore } from "react-icons/io";
 import { FaFilePen } from "react-icons/fa6";
@@ -11,9 +11,14 @@ import { getAuth, signOut } from 'firebase/auth';
 const Home = () => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState([]);
-    const auth = getAuth();
-    const isAuthenticated = !!auth.currentUser;
 
+    useEffect(()=>{
+        const auth = getAuth();
+        const isAuthenticated = !!auth.currentUser;
+        if(!isAuthenticated){
+            return <Navigate to={"/login"} replace />
+        }
+    },[])
     const handleApproval = async (userId) => {
         try {
             const userRef = ref(database, `users/${userId}`);

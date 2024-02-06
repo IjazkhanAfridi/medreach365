@@ -12,6 +12,15 @@ const SchoolHome = () => {
     const data = studentData && studentData?.medicalRecords && Object.values(studentData?.medicalRecords)
     const initialData = students && students?.length > 0 && Object.values(students[0]?.medicalRecords)
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        const auth = getAuth();
+        const isAuthenticated = !!auth.currentUser;
+        if(isAuthenticated == false){
+            navigate("/login")
+        }
+    },[])
+    
     useEffect(() => {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (user) => {

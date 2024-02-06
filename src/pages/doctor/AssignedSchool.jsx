@@ -8,6 +8,14 @@ const AssignedSchool = () => {
     const navigate = useNavigate()
     const [assigedSchool, setAssigendSchool] = useState(null)
     const [userId, setUserId] = useState(null);
+
+    useEffect(()=>{
+        const auth = getAuth();
+        const isAuthenticated = !!auth.currentUser;
+        if(!isAuthenticated){
+            navigate("/login")
+        }
+    },[])
     useEffect(() => {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (user) => {

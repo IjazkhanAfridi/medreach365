@@ -10,6 +10,7 @@ const DoctorLayout = ({ children, students }) => {
     const auth = getAuth();
     try {
       await signOut(auth);
+      localStorage.clear()
       navigate("/login")
     } catch (error) {
       console.error('Error logging out:', error.message);
