@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Main from '../../layout/Main'
-import { IoMdMore } from 'react-icons/io'
-import { FaArrowDownLong, FaArrowUpLong, FaFilePen } from 'react-icons/fa6'
 import { getAuth } from 'firebase/auth'
 import { get, onValue, ref } from 'firebase/database'
 import { database } from "../../firebase"
