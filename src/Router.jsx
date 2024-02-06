@@ -37,9 +37,9 @@ const PrivateRoute = ({ children, allowedRoles }) => {
         }).catch(err => console.log("catch error", err))
     }, [user]);
 
-    // if (!user) {
-    //     return <Navigate to="/login" replace />;
-    // }
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
 
     if (allowedRoles && !allowedRoles.includes(userData?.category)) {
         return <Navigate to="/" replace />;
