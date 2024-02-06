@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate, } from 'react-router-dom'
 import SignUp from './pages/auth/SignUp'
 import Login from './pages/auth/Login'
 import Home from './pages/Home'
@@ -16,13 +16,9 @@ import useAuth from './hooks/useAuth'
 import { database } from "./firebase"
 import NotApproved from './common/NotApproved'
 
-// const PrivateRoute = ({ children }) => {
-//     const isAuthenticated = localStorage?.getItem("token");
-//     return isAuthenticated ? children : <Navigate to="/login" replace />;
-// };
-
 const PrivateRoute = ({ children, allowedRoles }) => {
     const [userData, setUserData] = useState(null)
+    const navigate = useNavigate()
     const auth = getAuth();
     const user = useAuth();
 
@@ -36,10 +32,6 @@ const PrivateRoute = ({ children, allowedRoles }) => {
             }
         }).catch(err => console.log("catch error", err))
     }, [user]);
-
-    if (!user) {
-        return <Navigate to="/login" replace />;
-    }
 
     if (allowedRoles && !allowedRoles.includes(userData?.category)) {
         return <Navigate to="/" replace />;
@@ -70,7 +62,7 @@ const Router = () => {
                 <Routes>
                     <Route exact path="/signup" element={<SignUp />} />
                     <Route exact path="/login" element={<Login />} />
-                    <Route path="/" element={userData?.category == "doctor" ? <PrivateRoute allowedRoles={['doctor']}> {userData?.status !== "approved" ? <NotApproved /> : <AssignedSchool />}</PrivateRoute> : userData?.category == "school" ? <PrivateRoute allowedRoles={['school']}>{userData?.status !== "approved" ? <NotApproved /> : <SchoolHome />}</PrivateRoute> : <PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <Home />}</PrivateRoute>} />
+                    <Route path="/" element={userData?.category == "doctor" ? <PrivateRoute allowedRoles={['doctor']}> {userData?.status !== "approved" ? <NotApproved /> : <AssignedSchool />}</PrivateRoute> : userData?.category == "school" ? <PrivateRoute allowedRoles={['school']}>{userData?.status !== "approved" ? <NotApproved /> : <SchoolHome />}</PrivateRoute> : userData?.category == "admin" ? <PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <Home />}</PrivateRoute> : <Navigate to="/login" replace />} />
                     <Route path="/listedschool" element={<PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <School />}</PrivateRoute>} />
                     <Route path="/listeddoctors" element={<PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <Doctor />}</PrivateRoute>} />
                     <Route path="/doctor" element={<PrivateRoute allowedRoles={['doctor']}>{userData?.status !== "approved" ? <NotApproved /> : <DoctorHome />}</PrivateRoute>} />
