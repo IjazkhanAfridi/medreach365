@@ -19,7 +19,6 @@ const SignUp = () => {
         let day = myDate.getDate();
         let month = myDate.getMonth() + 1;
         let year = myDate.getFullYear();
-        console.log(month + '/' + day + '/' + year);
         if (password !== confirmPassword) {
             console.log("Passwords don't match");
             return;

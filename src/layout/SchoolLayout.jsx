@@ -3,9 +3,11 @@ import SchoolSidebar from '../common/SchoolSidebar'
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
+// https://app.usebubbles.com/1
+
 const SchoolLayout = ({ children, students }) => {
   const navigate = useNavigate()
-  
+
   const handleLogout = async () => {
     const auth = getAuth();
     try {
@@ -27,8 +29,7 @@ const SchoolLayout = ({ children, students }) => {
             Log Out
           </button>
         </div>
-        <div className="flex bg-blue-100 w-full h-[100px]"></div>
-        <div className="w-full">
+        <div className="w-full h-full">
           {children}
         </div>
       </div>

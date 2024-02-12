@@ -27,7 +27,7 @@ const DoctorLayout = ({ children, students }) => {
             Log Out
           </button>
         </div>
-        <div className="w-full">
+        <div className="w-full h-full flex flex-col">
           {children}
         </div>
       </div>

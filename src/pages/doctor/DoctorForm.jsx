@@ -40,19 +40,28 @@ const DoctorForm = () => {
     //     });
     // };
 
-
+    let myDate = new Date();
+    let hours = myDate.getHours();
+    let minutes = myDate.getMinutes();
+    let day = myDate.getDate();
+    let month = myDate.getMonth() + 1;
+    let year = myDate.getFullYear();
     const handleSubmit = () => {
+
+
         const medicalRecordsRef = ref(database, `schools/${location?.state?.schoolId}/students/${location?.state?.studentId}/medicalRecords`);
         const newRecordRef = push(medicalRecordsRef);
         set(newRecordRef, {
             record: value,
+            date: day + "/" + month + "/" + year,
+            time: hours + ":" + minutes
         }).then(() => {
             console.log('Record added successfully.');
             setStudentData((prevData) => ({
                 ...prevData,
                 medicalRecords: {
-                    ...prevData.medicalRecords,
-                    newRecordId: { record: value },
+                    ...prevData?.medicalRecords,
+                    newRecordId: { record: value, date: day + "/" + month + "/" + year, time: hours + ":" + minutes },
                 },
             }));
             navigate(-1);

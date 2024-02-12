@@ -34,11 +34,11 @@ const PrivateRoute = ({ children, allowedRoles }) => {
         }).catch(err => console.log("catch error", err))
     }, [user]);
 
-    useEffect(()=>{
-        if(!token || token==null){
+    useEffect(() => {
+        if (!token || token == null) {
             navigate("/login")
         }
-    },[])
+    }, [])
 
     //    if(isAuthenticated == false){
     //      return <Navigate to={"/login"} replace />
@@ -75,7 +75,7 @@ const Router = () => {
                 <Routes>
                     <Route exact path="/signup" element={<SignUp />} />
                     <Route exact path="/login" element={<Login />} />
-                    <Route path="/" element={userData?.category == "doctor" ? <PrivateRoute allowedRoles={['doctor']}> {userData?.status !== "approved" ? <NotApproved /> : <AssignedSchool />}</PrivateRoute> : userData?.category == "school" ? <PrivateRoute allowedRoles={['school']}>{userData?.status !== "approved" ? <NotApproved /> : <SchoolHome />}</PrivateRoute> : <PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <Home />}</PrivateRoute>} />
+                    <Route path="/" element={userData?.category == "doctor" ? <PrivateRoute allowedRoles={['doctor']}> {userData?.status !== "approved" ? <NotApproved /> : <AssignedSchool />}</PrivateRoute> : userData?.category == "school" ? <PrivateRoute allowedRoles={['school']}>{userData?.status !== "approved" ? <NotApproved /> : <SchoolHome />}</PrivateRoute> : <PrivateRoute allowedRoles={['admin']}><Home /></PrivateRoute>} />
                     <Route path="/listedschool" element={<PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <School />}</PrivateRoute>} />
                     <Route path="/listeddoctors" element={<PrivateRoute allowedRoles={['admin']}>{userData?.status !== "approved" ? <NotApproved /> : <Doctor />}</PrivateRoute>} />
                     <Route path="/doctor" element={<PrivateRoute allowedRoles={['doctor']}>{userData?.status !== "approved" ? <NotApproved /> : <DoctorHome />}</PrivateRoute>} />
