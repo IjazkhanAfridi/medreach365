@@ -49,7 +49,7 @@ const AssignedSchool = () => {
             <div className="min-h-screen flex flex-col items-center justify-center ">
                 <p className="text-4xl font-bold py-2">Select School</p>
                 {assigedSchool?.map((data) => (
-                    <div onClick={()=>navigate("/doctor",{state:{data:data?.id}})} className="cursor-pointer w-[50%] bg-blue-300 rounded-full my-1 p-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
+                    <div onClick={()=>navigate("/doctor",{state:{data:data?.id,schoolName:data?.schoolName}})} className="cursor-pointer w-[50%] bg-blue-300 rounded-full my-1 p-2" style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }}>
                         {data?.schoolName}
                     </div>
                 ))}

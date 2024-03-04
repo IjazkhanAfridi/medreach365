@@ -13,11 +13,12 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [isPasswordValid, setIsPasswordValid] = useState(true);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        setLoading(true)
         const auth = getAuth();
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -34,12 +35,16 @@ const Login = () => {
                 // You can use or store the name and category as needed
                 localStorage?.setItem("token",user?.accessToken)
                 // Redirect to the desired page after successful login
+                setLoading(false)
                 navigate("/")
             } else {
-                console.error('User data not found in the database.');
+                alert('User data not found in the database.');
+                setLoading(false)
             }
         } catch (error) {
             console.error('Error logging in:', error.message);
+            alert("something went wrong")
+            setLoading(false)
         }
     };
 
@@ -74,7 +79,7 @@ const Login = () => {
                             label={"Password"}
                         />
                         <div className="text-[white] flex justify-center py-6">
-                            <MyButton style={{ minWidth: "300px", padding: "30px auto" }} onClick={handleLogin}>Login</MyButton>
+                            <MyButton style={{ minWidth: "300px", padding: "30px auto" }} onClick={handleLogin}>{loading?"Loading...":"Login"}</MyButton>
                         </div>
                     </form>
                 </div>

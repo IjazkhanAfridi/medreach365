@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@zegocloud/zego-uikit-prebuilt": "^1.11.0",
+    "@zegocloud/zimkit-react": "^1.2.0",
     "axios": "^1.6.2",
     "chart.js": "^4.4.1",
     "dotenv": "^16.3.1",
